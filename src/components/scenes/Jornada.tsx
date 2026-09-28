@@ -12,20 +12,14 @@ import { gsap, useScene } from "@/lib/gsap";
 function Signals() {
   const rows = ["Conteúdo", "Perfil", "Agenda", "Consulta"];
   return (
-    <div className="rounded-[18px] bg-ink p-6 text-white">
-      <p className="micro text-white/60">Sinais do piloto</p>
-      <ul className="mt-5 flex flex-col gap-4">
-        {rows.map((r, i) => (
-          <li key={r} className="flex items-center gap-3">
-            <span className="w-20 text-[14px]">{r}</span>
-            <span className="h-[3px] flex-1 rounded-full bg-white/10">
-              <span className="block h-full rounded-full bg-violet" style={{ width: `${85 - i * 18}%`, opacity: 0.25 + i * 0.2 }} />
-            </span>
-            <span className="display w-6 text-right text-[22px] text-violet">—</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="flex flex-col">
+      {rows.map((r) => (
+        <li key={r} className="flex items-baseline justify-between border-t border-ink/15 py-3">
+          <span className="display-wide text-[clamp(22px,6vw,32px)] md:text-[clamp(24px,2.2vw,40px)]">{r}</span>
+          <span className="display text-[clamp(28px,8vw,44px)] text-violet-ink md:text-[clamp(32px,3vw,56px)]">—</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -33,7 +27,7 @@ const steps = [
   { word: "Conteúdo", node: <Asset shot={shots.igEspecialidade} sizes="(min-width: 768px) 24vw, 60vw" />, w: "w-[46vw] md:w-[19vw]" },
   { word: "Escolha", node: <PmCard className="overflow-hidden rounded-[18px] shadow-2xl" />, w: "w-[62vw] md:w-[26vw]" },
   { word: "Consulta", node: <PmAgenda className="overflow-hidden rounded-[18px] shadow-2xl" />, w: "w-[62vw] md:w-[26vw]" },
-  { word: "Aprendizado", node: <Signals />, w: "w-[80vw] md:w-[28vw]" },
+  { word: "Aprendizado", node: <Signals />, w: "w-[80vw] md:w-[24vw]" },
 ];
 
 export function Jornada() {
@@ -57,7 +51,7 @@ export function Jornada() {
       scrollTrigger: {
         trigger: el,
         start: "top top",
-        end: desktop ? "+=360%" : "+=400%",
+        end: desktop ? "+=280%" : "+=320%",
         scrub: 0.6,
         pin: true,
         invalidateOnRefresh: true,
@@ -84,7 +78,7 @@ export function Jornada() {
       aria-labelledby="jornada-title"
       className="relative overflow-hidden px-5 py-24 md:px-[6vw] anim:h-svh anim:p-0"
     >
-      <h2 id="jornada-title" className="micro text-mute anim:absolute anim:left-5 anim:top-[12vh] md:anim:left-[6vw] md:anim:top-[14vh]">
+      <h2 id="jornada-title" className="sr-only">
         A jornada
       </h2>
 
@@ -93,7 +87,7 @@ export function Jornada() {
           <div key={s.word} className="flex flex-col gap-6 anim:contents">
             <p
               data-word
-              className="display text-[17vw] md:text-[11.5vw] anim:absolute anim:left-5 anim:top-[17vh] md:anim:left-[6vw] md:anim:top-[30vh]"
+              className="display text-[clamp(48px,17vw,96px)] md:text-[clamp(96px,12.5vw,240px)] anim:absolute anim:left-5 anim:top-[15vh] md:anim:left-[5vw] md:anim:top-[28vh]"
             >
               <span className="line-mask">
                 <span className={`line-inner ${i === steps.length - 1 ? "text-violet-ink" : ""}`}>{s.word}</span>
@@ -110,7 +104,7 @@ export function Jornada() {
       </div>
 
       {/* Trilha: o mesmo ponto atravessa as etapas */}
-      <div className="hidden anim:absolute anim:bottom-[8vh] anim:left-5 anim:right-5 anim:block md:anim:bottom-[10vh] md:anim:left-[6vw] md:anim:right-[6vw]">
+      <div className="hidden anim:absolute anim:bottom-[8vh] anim:left-5 anim:right-5 anim:block md:anim:bottom-[10vh] md:anim:left-[5vw] md:anim:right-[5vw]">
         <div data-track className="relative h-px bg-ink/15">
           <div data-fill className="absolute inset-0 origin-left bg-violet [transform:scaleX(0)]" />
           <div data-dot className="absolute -left-2 -top-2 size-4 rounded-full bg-violet shadow-[0_0_0_6px_rgba(148,121,247,0.2)]" />

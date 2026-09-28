@@ -1,9 +1,8 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/scenes/Hero";
-import { Tensao } from "@/components/scenes/Tensao";
-import { Fragmentos } from "@/components/scenes/Fragmentos";
-import { Transformacao } from "@/components/scenes/Transformacao";
+import { JaTem } from "@/components/scenes/JaTem";
+import { Pontos } from "@/components/scenes/Pontos";
 import { CasoReal } from "@/components/scenes/CasoReal";
 import { Identidade } from "@/components/scenes/Identidade";
 import { Jornada } from "@/components/scenes/Jornada";
@@ -19,9 +18,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Tensao />
-        <Fragmentos />
-        <Transformacao />
+        <JaTem />
+        <Pontos />
         <CasoReal />
         <Identidade />
         <Jornada />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { CONTACT_URL, notes, shots, anchorVideo } from "@/content/sources";
+import { CONTACT_URL, notes, pilot, shots, anchorVideo } from "@/content/sources";
 
 // Rodapé simples + painel "Fontes e notas": fontes, datas de captura e as
 // ressalvas que não entram na narrativa principal.
@@ -11,8 +11,8 @@ export function Footer() {
   const list = Object.values(shots);
 
   return (
-    <footer className="bg-ink px-5 pb-10 pt-6 text-white md:px-[6vw]">
-      <div className="flex flex-col gap-4 border-t border-white/12 pt-6 text-[13px] md:flex-row md:items-center md:justify-between">
+    <footer className="bg-ink px-5 pb-8 pt-2 text-white md:px-[5vw]">
+      <div className="flex flex-col gap-3 text-[12px] text-white/60 md:flex-row md:items-center md:justify-between">
         <p>AERA × Pratimed · Da atenção à consulta.</p>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href={CONTACT_URL} className="font-medium text-violet hover:underline">Conversar sobre o piloto →</a>
@@ -38,6 +38,23 @@ export function Footer() {
           {[notes.distinction, notes.people, notes.data, notes.planning].map((n) => (
             <p key={n.slice(0, 20)} className="text-[14px] leading-relaxed text-ink/80">{n}</p>
           ))}
+          <div>
+            <p className="micro mb-3 text-mute">Piloto · escopo de referência</p>
+            <ul className="flex flex-col gap-1.5 text-[13px] text-ink/80">{pilot.scope.map((s) => <li key={s}>{s}</li>)}</ul>
+          </div>
+          <div>
+            <p className="micro mb-3 text-mute">Piloto · quem faz o quê</p>
+            <dl className="flex flex-col gap-2 text-[13px] text-ink/80">
+              {pilot.roles.map(([w, d]) => (
+                <div key={w}><dt className="font-semibold text-ink">{w}</dt><dd>{d}</dd></div>
+              ))}
+            </dl>
+          </div>
+          <div>
+            <p className="micro mb-3 text-mute">Piloto · cronograma</p>
+            {pilot.timeline.map((t) => <p key={t} className="mb-2 text-[13px] text-ink/80">{t}</p>)}
+            <p className="text-[13px] text-mute">{notes.pilot}</p>
+          </div>
           <div>
             <p className="micro mb-3 text-mute">Materiais atuais</p>
             <ul className="flex flex-col gap-2 text-[13px]">

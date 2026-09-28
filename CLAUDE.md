@@ -19,20 +19,22 @@ Stack: Next 16, Tailwind v4, GSAP ScrollTrigger (via `@gsap/react`) e Lenis. O `
 - **Cuidado:** no Tailwind v4, `rotate-*`, `translate-*` e `scale-*` usam as propriedades CSS individuais, que o GSAP não controla. Estado inicial que o GSAP vai animar precisa estar em `[transform:...]` ou em `gsap.set`.
 - Máscara de linha (`.line-mask`): o estado escondido usa yPercent ±130 ou mais, senão acentos e descendentes aparecem.
 
-## Cenas (`src/components/scenes/`)
+## Cenas (`src/components/scenes/`), PASS 02 "deck vivo"
 | # | Arquivo | O que mostra |
 | --- | --- | --- |
-| 1 | `Hero` | Fragmentos que se tornam conexão; "A Pratimed já tem atenção." |
-| 2 | `Tensao` | "A Pratimed já produz. A oportunidade é conectar." |
-| 3 | `Fragmentos` | Pontos de contato reais atravessando o título fixo |
-| 4 | `Transformacao` | Hoje → Proposta, por máscara |
-| 5 | `CasoReal` | "Terapia online funciona?" reconstruído em 8 estados |
-| 6 | `Identidade` | Cena roxa: reconhecimento, clareza, continuidade |
-| 7 | `Jornada` | Conteúdo → Escolha → Consulta → Aprendizado |
-| 8 | `Sinais` | 4 sinais com "—" |
-| 9 | `Orquestra` | Linhas que se alinham |
-| 10 | `Piloto` | Números e verbos; escopo completo em `<details>` |
-| 11 | `Fechamento` | CTA |
+| 1 | `Hero` | "A Pratimed já tem atenção." Os objetos soltos se alinham e entra "…um caminho até a consulta." |
+| 2 | `JaTem` | Cena icônica: "Já tem…" quatro vezes, os assets se acumulam e convergem, e fecha em "O que falta é fazer tudo trabalhar junto." |
+| 3 | `Pontos` | Hoje, soltos → mesmo grid → trocam de pele para a proposta, no lugar |
+| 4 | `CasoReal` | "Terapia online funciona?" em 8 estados; trilho só de progresso |
+| 5 | `Identidade` | Cena roxa com palavras que vazam da tela |
+| 6 | `Jornada` | Quatro palavras e um ponto que percorre a trilha |
+| 7 | `Sinais` | Linhas editoriais com "—" |
+| 8 | `Orquestra` | Setas dos parceiros giram para a mesma direção; "AERA" em escala |
+| 9 | `Piloto` | Números e verbos |
+| 10 | `Fechamento` | "A Pratimed já tem as peças." |
+
+Escopo, papéis e cronograma do piloto ficam em `pilot` (`sources.ts`) e aparecem no painel "Fontes e notas".
+Seções com texto em `mix-blend-difference` precisam de fundo próprio (`bg-paper`), porque o pin isola o blend.
 
 ## Outras peças
 - `src/components/pm/`: identidade proposta para a Pratimed. Superfícies em cqw (capa, post, vídeo, destino, card, agenda) e silhuetas no lugar de fotos.

@@ -104,3 +104,27 @@ export const notes = {
   planning:
     "A conversa inicial citou um planejamento de cerca de 400 vídeos em um ano, a validar com os sócios.",
 };
+
+// Escopo completo do piloto (fora da narrativa; no painel de notas).
+export const pilot = {
+  scope: [
+    "Uma jornada e um público prioritários",
+    "Três a cinco profissionais com perfis e disponibilidade confirmados pela Pratimed",
+    "Duas ou três peças de conteúdo, selecionadas com o parceiro atual",
+    "Um destino principal, conectado ao agendamento existente",
+    "Um sistema visual e verbal aplicado às peças e telas do piloto",
+    "Uma leitura dos eventos disponíveis e das adaptações necessárias",
+    "Uma rotina de acompanhamento e uma reunião de decisão ao fim do ciclo",
+  ],
+  roles: [
+    ["Sócios da Pratimed", "Prioridades, oferta, orçamento, responsáveis e decisões do projeto."],
+    ["AERA", "Direção de marca, desenho da jornada, sistema visual, primeiras aplicações, critérios de qualidade e coordenação da leitura do piloto."],
+    ["Parceiros de conteúdo e mídia", "Planejamento, produção, publicação e distribuição, conforme o escopo acordado."],
+    ["Site, CRM e dados", "Avaliação técnica, páginas e eventos, integrações e disponibilização dos dados."],
+    ["Responsáveis clínicos e jurídicos", "Validação das informações e dos procedimentos sob sua responsabilidade."],
+  ] as [string, string][],
+  timeline: [
+    "Implantação, 4 a 6 semanas: alinhamento e acessos, desenho da jornada, sistema visual, aplicações, implementação, validação do percurso e da medição.",
+    "Acompanhamento, 30 dias no ar: leitura dos sinais, registro de dificuldades, ajustes acordados e recomendação para o próximo ciclo.",
+  ],
+};

@@ -37,11 +37,11 @@ export function Identidade() {
     <section
       ref={root}
       aria-label="O sistema proposto"
-      className="pm relative overflow-hidden bg-violet px-5 py-28 text-ink md:px-[6vw] md:py-40"
+      className="pm relative overflow-hidden bg-violet px-5 py-32 text-ink md:px-[5vw] md:py-48"
     >
-      <h2 className="display relative z-10 text-[16vw] md:text-[12.5vw]">
+      <h2 className="display relative z-10 whitespace-nowrap text-[19vw] md:text-[clamp(96px,15vw,300px)]">
         {WORDS.map((w, i) => (
-          <span key={w} className={`line-mask ${i === 1 ? "md:pl-[18vw]" : i === 2 ? "md:pl-[6vw]" : ""}`}>
+          <span key={w} className={`line-mask ${i === 1 ? "pl-[14vw] md:pl-[22vw]" : i === 2 ? "pl-[4vw] md:pl-[8vw]" : ""}`}>
             <span className="line-inner">{w}</span>
           </span>
         ))}
@@ -54,7 +54,6 @@ export function Identidade() {
         </div>
         <div data-orbit="55" className="absolute bottom-[7%] right-[24vw] hidden rounded-2xl bg-ink p-5 text-[var(--pm-paper)] shadow-xl md:block">
           <p className="pm-q text-[64px]">Aa</p>
-          <p className="micro mt-2 opacity-70">Instrument Sans · condensada</p>
         </div>
         <div data-orbit="20" className="absolute bottom-[5%] right-[5vw] flex overflow-hidden rounded-xl shadow-xl">
           {["#231a4f", "#5b45d6", "#9479f7", "#eee9ff", "#fbfaf7"].map((c) => (

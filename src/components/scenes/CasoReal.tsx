@@ -32,7 +32,7 @@ const SHAPE: Record<State["shape"], string> = {
   wide: "anim:w-full",
   tall: "anim:w-auto anim:h-[min(100cqh,calc(100cqw*16/9))] anim:aspect-[9/16]",
   phone: "anim:w-auto anim:h-[min(100cqh,calc(100cqw*18.5/9))] anim:aspect-[9/18.5]",
-  card: "anim:w-[min(88vw,52vh)] md:anim:w-[min(30vw,60vh)]",
+  card: "anim:w-[min(70vw,36vh)] md:anim:w-[min(30vw,60vh)]",
 };
 
 export function CasoReal() {
@@ -55,7 +55,7 @@ export function CasoReal() {
       scrollTrigger: {
         trigger: el,
         start: "top top",
-        end: desktop ? "+=620%" : "+=680%",
+        end: desktop ? "+=480%" : "+=520%",
         scrub: 0.6,
         pin: true,
       },
@@ -98,13 +98,13 @@ export function CasoReal() {
     >
       <h2
         id="caso-title"
-        className="display max-w-[12ch] text-[12vw] anim:text-[10vw] md:text-[5.2vw] md:anim:text-[5.2vw] anim:absolute anim:left-5 anim:top-[10vh] md:anim:left-[6vw] md:anim:top-[14vh]"
+        className="display max-w-[11ch] text-[12vw] anim:text-[10vw] md:text-[clamp(64px,6.4vw,130px)] md:anim:text-[clamp(64px,6.4vw,130px)] anim:absolute anim:left-5 anim:top-[10vh] md:anim:left-[5vw] md:anim:top-[12vh]"
       >
         Um conteúdo pode ser o começo de uma <span className="text-violet">jornada.</span>
       </h2>
 
       {/* Legenda do estado: uma frase */}
-      <div className="hidden anim:absolute anim:bottom-[5vh] anim:left-5 anim:right-5 anim:block anim:h-[4.5em] md:anim:bottom-[19vh] md:anim:left-[6vw] md:anim:right-auto md:anim:w-[30vw]">
+      <div className="hidden anim:absolute anim:bottom-[5vh] anim:left-5 anim:right-5 anim:block anim:h-[4.5em] md:anim:bottom-[15vh] md:anim:left-[5vw] md:anim:right-auto md:anim:w-[30vw]">
         {states.map((s) => (
           <p key={s.label} data-cap className="display-wide absolute inset-x-0 bottom-0 text-[6.4vw] text-white md:text-[2.3vw]">
             {s.caption}
@@ -112,20 +112,15 @@ export function CasoReal() {
         ))}
       </div>
 
-      {/* Trilho de estados */}
-      <ol aria-hidden className="hidden anim:absolute anim:left-5 anim:right-5 anim:top-[33vh] anim:flex anim:gap-1.5 md:anim:bottom-[9vh] md:anim:left-[6vw] md:anim:right-auto md:anim:top-auto md:anim:w-[34vw] md:anim:flex-wrap md:anim:gap-x-4 md:anim:gap-y-1">
+      {/* Trilho de estados: só progresso, sem numeração */}
+      <ol aria-hidden className="hidden anim:absolute anim:left-5 anim:right-5 anim:top-[33vh] anim:flex anim:gap-1.5 md:anim:bottom-[10vh] md:anim:left-[5vw] md:anim:right-auto md:anim:top-auto md:anim:w-[30vw]">
         {states.map((s, i) => (
-          <li key={s.label} data-tick className={`micro flex-1 md:flex-none ${i === 0 ? "opacity-100" : "opacity-30"}`}>
-            <span className="block h-[2px] bg-violet md:hidden" />
-            <span className="hidden md:inline">
-              <span className="text-violet">{String(i + 1).padStart(2, "0")}</span> {s.label}
-            </span>
-          </li>
+          <li key={s.label} data-tick className={`h-[2px] flex-1 bg-violet ${i === 0 ? "opacity-100" : "opacity-30"}`} />
         ))}
       </ol>
 
       {/* Palco */}
-      <div className="mt-14 flex flex-col gap-16 anim:[container-type:size] anim:absolute anim:bottom-[13vh] anim:left-5 anim:right-5 anim:top-[37vh] anim:mt-0 anim:block md:anim:bottom-[8vh] md:anim:left-auto md:anim:right-[6vw] md:anim:top-[10vh] md:anim:w-[50vw]">
+      <div className="mt-14 flex flex-col gap-16 anim:[container-type:size] anim:absolute anim:bottom-[13vh] anim:left-5 anim:right-5 anim:top-[37vh] anim:mt-0 anim:block md:anim:bottom-[8vh] md:anim:left-auto md:anim:right-[5vw] md:anim:top-[9vh] md:anim:w-[50vw]">
         {states.map((s, i) => (
           <figure
             key={s.label}
