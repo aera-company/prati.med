@@ -1,26 +1,47 @@
-# Pratimed × AERA · Da atenção à consulta
+# Pratimed × AERA · Da atenção à consulta (V2)
 
-Apresentação one-page para os sócios da Pratimed. A fonte de verdade é `../PRATIMED_AERA_ONEPAGE_HTML_BRIEF_V6.md`. Os materiais capturados estão documentados em `../capture/MANIFESTO.md`.
+Apresentação one-page para os sócios da Pratimed.
 
-Stack: Next 16, Tailwind v4, Framer Motion e Lenis, a partir da `new-3d-landbase`, sem a hero de frame-sequence. `turbopack.root` está fixado.
+- **Tese:** `../PRATIMED_AERA_ONEPAGE_HTML_BRIEF_V6.md`.
+- **Direção da V2:** redesign com referência de ritmo e escala na MetaDeck.
+- **Materiais capturados:** `../capture/MANIFESTO.md`.
+- **V1 documental:** preservada no branch `v1-documental` e na tag `v1.0-documental`.
 
-## Estrutura
-- `src/app/page.tsx`: as sete cenas em ordem.
-- `src/components/scenes/Scene1..7`: uma cena por arquivo, com uma mensagem dominante em cada.
-- `src/content/sources.ts`: registro das capturas (URL, data, contexto) e `CONTACT_URL`, ainda **pendente**.
-- `src/components/ui/`:
-  - `EvidenceTag`: rótulos atual / proposta / conceitual.
-  - `ShotFigure`: screenshot real com fonte.
-  - `ProposalSlot`: aplicação proposta em desenho.
-  - `YouTubeLite`: player que só carrega o iframe no clique.
+Stack: Next 16, Tailwind v4, GSAP ScrollTrigger (via `@gsap/react`) e Lenis. O `turbopack.root` está fixado.
+
+## Arquitetura de movimento
+- `src/app/layout.tsx`:
+  - Um script no `<head>` marca `html[data-motion="on"]` quando há JS e o sistema não pede movimento reduzido.
+  - A variante `anim:` (em `globals.css`) aplica o layout animado.
+  - Sem ela, cada cena cai num layout estático completo.
+- `src/lib/gsap.ts` (`useScene`): monta a timeline de cada cena só com movimento permitido. Desktop (≥768px) e mobile têm montagens próprias.
+- `SmoothScrollProvider`: Lenis dirigido pelo ticker do GSAP.
+- **Cuidado:** no Tailwind v4, `rotate-*`, `translate-*` e `scale-*` usam as propriedades CSS individuais, que o GSAP não controla. Estado inicial que o GSAP vai animar precisa estar em `[transform:...]` ou em `gsap.set`.
+- Máscara de linha (`.line-mask`): o estado escondido usa yPercent ±130 ou mais, senão acentos e descendentes aparecem.
+
+## Cenas (`src/components/scenes/`)
+| # | Arquivo | O que mostra |
+| --- | --- | --- |
+| 1 | `Hero` | Fragmentos que se tornam conexão; "A Pratimed já tem atenção." |
+| 2 | `Tensao` | "A Pratimed já produz. A oportunidade é conectar." |
+| 3 | `Fragmentos` | Pontos de contato reais atravessando o título fixo |
+| 4 | `Transformacao` | Hoje → Proposta, por máscara |
+| 5 | `CasoReal` | "Terapia online funciona?" reconstruído em 8 estados |
+| 6 | `Identidade` | Cena roxa: reconhecimento, clareza, continuidade |
+| 7 | `Jornada` | Conteúdo → Escolha → Consulta → Aprendizado |
+| 8 | `Sinais` | 4 sinais com "—" |
+| 9 | `Orquestra` | Linhas que se alinham |
+| 10 | `Piloto` | Números e verbos; escopo completo em `<details>` |
+| 11 | `Fechamento` | CTA |
+
+## Outras peças
+- `src/components/pm/`: identidade proposta para a Pratimed. Superfícies em cqw (capa, post, vídeo, destino, card, agenda) e silhuetas no lugar de fotos.
+- `src/content/sources.ts`: fontes, datas de captura, ressalvas (`notes`) e `CONTACT_URL`, ainda **pendente**. Aparecem no painel "Fontes e notas" do rodapé.
 
 ## Regras
-- Screenshot real mantém a aparência original e sempre leva `ShotFigure` (rótulo e fonte).
-- Proposta sempre leva o rótulo "Aplicação proposta". O painel leva "Demonstração conceitual" e mostra "—" onde não há valor.
-- Não inventar números, rankings ou conversão.
-- Copy visível: sem travessão como pontuação e títulos em sentence case.
-- Mobile primeiro, com jornadas em sequência vertical. No mobile, usar recortes de detalhe em vez de telas inteiras reduzidas.
-- Conteúdo completo mesmo com `prefers-reduced-motion`.
+- Pouco texto por viewport. O brief é orientação interna e não vira conteúdo.
+- Material atual leva o chip "Hoje" e a fonte no tooltip e nas notas. Proposta leva o chip "Proposta". Indicadores são ilustrativos.
+- Copy em sentence case, sem travessão como pontuação. O "—" só aparece como valor vazio.
 - Git e Vercel só com ordem do Tiago.
 
 ## Rodar

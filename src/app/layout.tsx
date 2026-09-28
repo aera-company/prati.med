@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 const instrument = Instrument_Sans({
   variable: "--font-instrument",
   subsets: ["latin"],
-});
-
-const serif = Instrument_Serif({
-  variable: "--font-serif-face",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  axes: ["wdth"],
 });
 
 const mono = Geist_Mono({
@@ -23,9 +17,13 @@ const mono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Da atenção à consulta · Pratimed × AERA",
   description:
-    "Uma jornada reconhecível entre conteúdo, escolha do profissional e agendamento, com um primeiro piloto mensurável.",
+    "A Pratimed já tem conteúdo, profissionais e agenda. Uma proposta da AERA para fazer tudo trabalhar junto.",
   robots: { index: false, follow: false },
 };
+
+// Marca o documento antes da pintura: com JS e sem movimento reduzido, as
+// cenas usam o layout animado (variante `anim:`). Evita salto na hidratação.
+const motionScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.motion='on'}catch(e){}`;
 
 export default function RootLayout({
   children,
@@ -33,9 +31,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${instrument.variable} ${serif.variable} ${mono.variable} h-full antialiased`}
+      className={`${instrument.variable} ${mono.variable} antialiased`}
+      suppressHydrationWarning
     >
-      <body className="relative min-h-full bg-paper text-ink">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+      </head>
+      <body className="bg-paper text-ink">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

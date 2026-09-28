@@ -1,44 +1,44 @@
 @import "tailwindcss";
 
+/* Layout animado só quando o script do <head> marca data-motion="on"
+   (JS ativo e sem prefers-reduced-motion). Fora disso, cada cena mostra
+   seu layout estático completo. */
+@custom-variant anim (&:where([data-motion="on"] *));
+
 /* ============================================================
-   Tokens · Pratimed × AERA
-   Base editorial clara; roxo Pratimed (#9479F7, amostrado do
-   logo oficial) como sinal de continuidade. --violet-ink é a
-   variante com contraste AA para texto sobre --paper.
+   Moldura da apresentação: papel, preto e grafite.
+   Roxo Pratimed como sinal, ação e mudança de ritmo.
    ============================================================ */
 :root {
-  --paper: #f6f5f1;
-  --paper-2: #edebe5;
-  --surface: #ffffff;
-  --ink: #17161c;
-  --ink-2: #4a4852;
-  --ink-3: #6e6c76;
-  --line: rgba(23, 22, 28, 0.12);
+  --paper: #f3f1ec;
+  --paper-2: #e8e5de;
+  --ink: #0e0e11;
+  --graphite: #18181c;
+  --graphite-2: #26262c;
+  --mute: #6b6a72;
+  --mute-dark: #8d8c95;
+  --line: rgba(14, 14, 17, 0.12);
+  --line-dark: rgba(255, 255, 255, 0.12);
   --violet: #9479f7;
+  --violet-deep: #5b45d6;
   --violet-ink: #4e3bc2;
-  --violet-soft: #ece7fe;
-  --night: #121116;
-  --night-ink: #f2f1ed;
-  --night-2: #a9a7b0;
 }
 
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
-  --color-surface: var(--surface);
   --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
-  --color-ink-3: var(--ink-3);
+  --color-graphite: var(--graphite);
+  --color-graphite-2: var(--graphite-2);
+  --color-mute: var(--mute);
+  --color-mute-dark: var(--mute-dark);
   --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
   --color-violet: var(--violet);
+  --color-violet-deep: var(--violet-deep);
   --color-violet-ink: var(--violet-ink);
-  --color-violet-soft: var(--violet-soft);
-  --color-night: var(--night);
-  --color-night-ink: var(--night-ink);
-  --color-night-2: var(--night-2);
   --font-sans: var(--font-instrument);
   --font-mono: var(--font-mono-face);
-  --font-serif: var(--font-serif-face);
 }
 
 html,
@@ -50,18 +50,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 ::selection {
   background: var(--violet);
-  color: var(--surface);
+  color: var(--ink);
 }
 
-:where(a, button, [role="button"], input, textarea, select):focus-visible {
-  outline: 2px solid var(--violet-ink);
+:where(a, button, [role="button"], summary):focus-visible {
+  outline: 2px solid var(--violet);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -72,21 +76,53 @@ button,
   touch-action: manipulation;
 }
 
-/* Títulos: quebras intencionais e sem viúvas. */
-.headline {
-  text-wrap: balance;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+/* Tipografia de apresentação: condensada, pesada, tracking fechado. */
+.display {
+  font-variation-settings: "wdth" 78;
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
 }
 
-.lede {
-  text-wrap: pretty;
+.display-wide {
+  font-variation-settings: "wdth" 92;
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.micro {
+  font-family: var(--font-mono-face), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+/* Linha de texto revelada por máscara (cada .line-inner sobe). */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.line-inner {
+  display: block;
+}
+
+/* Objeto real da Pratimed: imagem com sombra de objeto sobre a mesa. */
+.object {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 30px 60px -30px rgba(14, 14, 17, 0.45),
+    0 8px 20px -12px rgba(14, 14, 17, 0.25);
+  background: #fff;
 }
 
 /* ============================================================
-   Direção proposta para a Pratimed ("a pergunta primeiro").
-   Escopo .pm: vale só dentro das aplicações da cena 4, para não
-   misturar a identidade proposta com a moldura da apresentação.
+   Identidade proposta para a Pratimed (aplicações).
+   Escopo .pm para não misturar com a moldura da apresentação.
    ============================================================ */
 .pm {
   --pm-ink: #231a4f;
@@ -100,16 +136,12 @@ button,
   color: var(--pm-ink);
 }
 
-/* Espaço reservado para aplicações propostas ainda em desenho. */
-.proposal-slot {
-  background: repeating-linear-gradient(
-    -45deg,
-    color-mix(in srgb, var(--violet) 6%, transparent),
-    color-mix(in srgb, var(--violet) 6%, transparent) 10px,
-    color-mix(in srgb, var(--violet) 11%, transparent) 10px,
-    color-mix(in srgb, var(--violet) 11%, transparent) 20px
-  );
-  border: 1px dashed color-mix(in srgb, var(--violet-ink) 45%, transparent);
+/* A pergunta de quem procura: mesma família, condensada. */
+.pm-q {
+  font-variation-settings: "wdth" 80;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
 }
 
 @media (prefers-reduced-motion: reduce) {

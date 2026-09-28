@@ -1,8 +1,6 @@
-// Registro dos materiais atuais usados na página.
-// Toda captura tem URL, data e contexto (brief V6, seção 06).
-// Detalhes completos em ../capture/MANIFESTO.md.
-
-export const CAPTURED_AT = "27/09/2026";
+// Registro dos materiais atuais (públicos) usados na página.
+// URL, data e contexto ficam aqui e no painel "Fontes e notas"; na narrativa
+// aparecem só como chip "Hoje" e tooltip. Detalhes: ../capture/MANIFESTO.md.
 
 // Destino oficial de contato da AERA. PENDENTE: validar antes de publicar.
 export const CONTACT_URL = "#";
@@ -12,77 +10,77 @@ export type Shot = {
   width: number;
   height: number;
   alt: string;
-  source: string; // URL de origem
-  context: string; // o que o recorte mostra
+  source: string;
+  context: string;
+  captured: string;
 };
 
+const SITE = "https://www.pratimed.com.br";
+const IG = "https://www.instagram.com/prati.med/";
+const PERFIL = `${SITE}/psicologo-online/profissionais/amanda-de-sa-macgado-0555323`;
+
+const ig = (src: string, alt: string): Shot => ({
+  src: `/capture/${src}.webp`,
+  width: 620,
+  height: 828,
+  alt,
+  source: IG,
+  context: "Instagram @prati.med · post do feed",
+  captured: "28/09/2026",
+});
+
 export const shots = {
+  ytCapa: {
+    src: "/capture/yt-terapia-online-capa.webp",
+    width: 1280,
+    height: 720,
+    alt: "Capa atual do vídeo Conheça a Pratimed: psicologia, psiquiatria e nutrição online",
+    source: "https://www.youtube.com/watch?v=ngJLtzdLdQY",
+    context: "YouTube · capa do vídeo Terapia online funciona?",
+    captured: "27/09/2026",
+  },
   siteHome: {
     src: "/capture/site-home.webp",
     width: 1400,
     height: 875,
-    alt: "Página inicial da Pratimed: psicólogos e nutricionistas online",
-    source: "https://www.pratimed.com.br/",
+    alt: "Página inicial atual da Pratimed",
+    source: `${SITE}/`,
     context: "Site · página inicial",
+    captured: "27/09/2026",
   },
-  listaCards: {
-    src: "/capture/lista-cards.webp",
-    width: 1312,
-    height: 379,
-    alt: "Três cards de psicólogas na lista da Pratimed, com CRP, especialidades e valor da sessão",
-    source: "https://www.pratimed.com.br/psicologo-online/profissionais",
-    context: "Site · lista de profissionais",
-  },
-  listaCardAmanda: {
+  cardAmanda: {
     src: "/capture/lista-card-amanda.webp",
     width: 416,
     height: 379,
-    alt: "Card da psicóloga Amanda de Sá Machado na lista, sessão a R$ 150",
-    source: "https://www.pratimed.com.br/psicologo-online/profissionais",
-    context: "Site · card de profissional",
-  },
-  perfilTopo: {
-    src: "/capture/perfil-topo.webp",
-    width: 1160,
-    height: 700,
-    alt: "Topo do perfil de Amanda de Sá Machado: foto, CRP, especialidade, avaliações e valor",
-    source:
-      "https://www.pratimed.com.br/psicologo-online/profissionais/amanda-de-sa-macgado-0555323",
-    context: "Site · perfil do profissional",
+    alt: "Card atual de profissional na lista da Pratimed",
+    source: `${SITE}/psicologo-online/profissionais`,
+    context: "Site · card na lista de psicólogos",
+    captured: "27/09/2026",
   },
   perfilPreco: {
     src: "/capture/perfil-preco.webp",
     width: 354,
     height: 600,
-    alt: "Bloco de valor do perfil: R$ 150, 50 minutos, próximo horário disponível e botão Falar agora",
-    source:
-      "https://www.pratimed.com.br/psicologo-online/profissionais/amanda-de-sa-macgado-0555323",
-    context: "Site · valor e próximo horário",
+    alt: "Bloco atual de valor do perfil, com o botão Falar agora",
+    source: PERFIL,
+    context: "Site · valor e próximo horário no perfil",
+    captured: "27/09/2026",
   },
-  agenda: {
-    src: "/capture/agenda-widget.webp",
-    width: 1024,
-    height: 950,
-    alt: "Agendamento em três passos: escolher data, horário e confirmar dados",
+  agendaCalendario: {
+    src: "/capture/agenda-calendario.webp",
+    width: 400,
+    height: 380,
+    alt: "Calendário atual do agendamento da Pratimed",
     source: "https://agendamento.pratimed.com.br/widget/amanda-de-sa-macgado-0555323",
-    context: "Agendamento · passo 1",
+    context: "Agendamento · escolha da data",
+    captured: "27/09/2026",
   },
-  instagram: {
-    src: "/capture/instagram-perfil.webp",
-    width: 936,
-    height: 840,
-    alt: "Perfil @prati.med no Instagram com bio e primeiros posts",
-    source: "https://www.instagram.com/prati.med/",
-    context: "Instagram · perfil",
-  },
-  ytCapa: {
-    src: "/capture/yt-terapia-online-capa.webp",
-    width: 1280,
-    height: 720,
-    alt: "Capa do vídeo Conheça a Pratimed: psicologia, psiquiatria e nutrição online",
-    source: "https://www.youtube.com/watch?v=ngJLtzdLdQY",
-    context: "YouTube · capa do vídeo",
-  },
+  igProposito: ig("ig-proposito", "Post atual: Qual nosso propósito?, em caixa alta roxa e azul"),
+  igEspecialidade: ig("ig-especialidade", "Reel atual com gravação de tela do site: Escolha a especialidade"),
+  igCura: ig("ig-cura", "Post atual com citação em serifa sobre fundo lilás"),
+  igNarrativa: ig("ig-narrativa", "Reel atual com citação em serifa sobre foto de praia"),
+  igProfissional: ig("ig-profissional", "Post atual apresentando uma nova profissional"),
+  igInvestimento: ig("ig-investimento", "Post atual com citação em serifa sobre fundo roxo"),
 } satisfies Record<string, Shot>;
 
 export const anchorVideo = {
@@ -90,6 +88,19 @@ export const anchorVideo = {
   title: "Terapia online funciona? Psicólogo, psiquiatra e nutricionista na PratiMed",
   channel: "Pratimed - Telemedicina",
   publishedAt: "26/09/2026",
-  duration: "3:34",
   url: "https://www.youtube.com/watch?v=ngJLtzdLdQY",
+};
+
+// Notas que não entram na narrativa principal, mas ficam acessíveis.
+export const notes = {
+  distinction:
+    "Materiais marcados como Hoje são capturas públicas da Pratimed, com aparência original. Aplicações marcadas como Proposta são demonstrações da AERA. Indicadores são ilustrativos.",
+  people:
+    "As aplicações usam dados de perfis públicos como exemplo, com silhuetas no lugar das fotos. Quem aparece em cada peça será definido com a Pratimed e com os profissionais. O endereço de destino é ilustrativo.",
+  data:
+    "Não tivemos acesso a CRM, analytics ou campanhas. Os indicadores e a forma de medir serão definidos com a Pratimed, considerando finalidade, acesso e informações de saúde. Um link identificado mostra um percurso observado, sem provar sozinho todo o efeito de um conteúdo.",
+  pilot:
+    "Recorte de referência, validado depois de conhecer ferramentas, contratos, dados e capacidade de execução. Sem promessa de aumento de conversão em 30 dias: com poucos dados, a leitura traz sinais e limitações.",
+  planning:
+    "A conversa inicial citou um planejamento de cerca de 400 vídeos em um ano, a validar com os sócios.",
 };

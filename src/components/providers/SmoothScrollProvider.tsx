@@ -1,47 +1,44 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Lenis from "lenis";
-import { MotionConfig } from "framer-motion";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
-type Props = { children: React.ReactNode };
-
-export function SmoothScrollProvider({ children }: Props) {
-  const lenisRef = useRef<Lenis | null>(null);
-
+// Lenis dirigido pelo ticker do GSAP, para o ScrollTrigger ler o mesmo scroll.
+// Sem Lenis em reduced motion. Mantém data-motion em dia se a preferência
+// do sistema mudar com a página aberta.
+export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Respeita prefers-reduced-motion: sem suavização de scroll.
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      if (mq.matches) delete document.documentElement.dataset.motion;
+      else document.documentElement.dataset.motion = "on";
+      ScrollTrigger.refresh();
+    };
+    mq.addEventListener("change", sync);
+
+    let lenis: Lenis | null = null;
+    let tick: ((t: number) => void) | null = null;
+    if (!mq.matches) {
+      lenis = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false });
+      lenis.on("scroll", ScrollTrigger.update);
+      tick = (t: number) => lenis?.raf(t * 1000);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
     }
 
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
-      smoothWheel: true,
-      syncTouch: false, // Safari-safe: evita stutter no iOS
-      touchMultiplier: 1.1,
-    });
-    lenisRef.current = lenis;
-
-    let rafId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
+    // Recalcula posições depois que fontes e imagens assentam.
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh);
+    window.addEventListener("load", refresh);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      lenisRef.current = null;
+      mq.removeEventListener("change", sync);
+      window.removeEventListener("load", refresh);
+      if (tick) gsap.ticker.remove(tick);
+      lenis?.destroy();
     };
   }, []);
 
-  // reducedMotion="user" → o Framer respeita prefers-reduced-motion
-  // automaticamente em todos os reveals/hover.
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return <>{children}</>;
 }
