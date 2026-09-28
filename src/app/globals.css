@@ -102,6 +102,8 @@ button,
 .line-mask {
   display: block;
   overflow: hidden;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
 }
